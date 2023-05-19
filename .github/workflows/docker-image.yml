@@ -18,6 +18,10 @@ jobs:
           username: ${{github.actor}}
           password: ${{secrets.REGESTRY_TOKEN}}
       - name: 'Build Inventory Image'
+        run: docker build . --tag ghcr.io/artemyany/python:latest
+      - name: 'Test Image'
         run: |
-          docker build . --tag ghcr.io/artemyany/python:latest
-          docker push ghcr.io/artemyany/python:latest
+          docker run -p 5000:5000 -d --rm ghcr.io/artemyany/python
+          curl 127.0.0.1:5000
+      - name: 'Push Image'
+        run: docker push ghcr.io/artemyany/python:latest
