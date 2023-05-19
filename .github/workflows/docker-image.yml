@@ -22,6 +22,7 @@ jobs:
       - name: 'Test Image'
         run: |
           docker run -p 5000:5000 -d --rm ghcr.io/artemyany/python
+          sleep 3
           curl 127.0.0.1:5000
       - name: 'Push Image'
         run: docker push ghcr.io/artemyany/python:latest
